@@ -10,8 +10,8 @@ import '../models/todo_model.dart';
 import '../providers/todo_provider.dart';
 
 class TodoModal extends StatelessWidget {
-  String type;
-  Todo? item;
+  final String type;
+  final Todo? item;
   final TextEditingController _formFieldController = TextEditingController();
 
   TodoModal({super.key, required this.type, required this.item});
