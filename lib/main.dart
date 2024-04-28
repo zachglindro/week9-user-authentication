@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'pages/todo_page.dart';
+import 'pages/home_page.dart';
 import 'providers/todo_provider.dart';
 import 'providers/auth_provider.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'SimpleTodo',
       initialRoute: '/',
       routes: {
-        '/': (context) => const TodoPage(),
+        '/': (context) => const HomePage(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,

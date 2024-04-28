@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:week9_authentication/providers/auth_provider.dart';
 
 import 'signup_page.dart';
 
@@ -13,25 +15,29 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
+  bool showSignInErrorMessage = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          margin: EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                heading,
-                emailField,
-                passwordField,
-                submitButton,
-                signUpButton
-              ],
-            ),
-          )),
+      body: SingleChildScrollView(
+        child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 30),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  heading,
+                  emailField,
+                  passwordField,
+                  showSignInErrorMessage ? signInErrorMessage : Container(),
+                  submitButton,
+                  signUpButton
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -78,21 +84,52 @@ class _SignInPageState extends State<SignInPage> {
         ),
       );
 
+  Widget get signInErrorMessage => const Padding(
+        padding: EdgeInsets.only(bottom: 30),
+        child: Text(
+          "Invalid email or password",
+          style: TextStyle(color: Colors.red),
+        ),
+      );
+
   Widget get submitButton => ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
+          String? message = await context
+              .read<UserAuthProvider>()
+              .authService
+              .signIn(email!, password!);
+
+          print(message);
+          print(showSignInErrorMessage);
+
+          setState(() {
+            if (message != null && message.isNotEmpty) {
+              showSignInErrorMessage = true;
+            } else {
+              showSignInErrorMessage = false;
+            }
+          });
         }
       },
       child: const Text("Sign In"));
 
   Widget get signUpButton => Padding(
         padding: const EdgeInsets.all(30),
-        child: TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignUpPage()));
-            },
-            child: const Text("Sign Up")),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("No account yet?"),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpPage()));
+                },
+                child: const Text("Sign Up"))
+          ],
+        ),
       );
 }

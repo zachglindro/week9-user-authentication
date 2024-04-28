@@ -1,17 +1,11 @@
-/*
-  Created by: Claizel Coubeili Cepe
-  Date: updated April 26, 2023
-  Description: Sample todo app with Firebase 
-*/
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/todo_model.dart';
-import '../providers/todo_provider.dart';
 import '../providers/auth_provider.dart';
-import 'user_details_page.dart';
+import '../providers/todo_provider.dart';
 import 'modal_todo.dart';
+import 'user_details_page.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
@@ -23,9 +17,7 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
-    // access the list of todos in the provider
     Stream<QuerySnapshot> todosStream = context.watch<TodoListProvider>().todo;
-
     return Scaffold(
       drawer: drawer,
       appBar: AppBar(

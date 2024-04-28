@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:week9_authentication/providers/auth_provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -15,15 +17,18 @@ class _SignUpState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          margin: const EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [heading, emailField, passwordField, submitButton],
-            ),
-          )),
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Container(
+            margin: const EdgeInsets.all(30),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [heading, emailField, passwordField, submitButton],
+              ),
+            )),
+      ),
     );
   }
 
@@ -94,9 +99,13 @@ class _SignUpState extends State<SignUpPage> {
       );
 
   Widget get submitButton => ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
+          await context
+              .read<UserAuthProvider>()
+              .authService
+              .signUp(email!, password!);
         }
       },
       child: const Text("Sign Up"));
