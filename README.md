@@ -1,16 +1,33 @@
-# week9_authentication
-
-A new Flutter project.
+# CMSC 23 Week 9: User Authentication using Firebase
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Please follow the following steps:
 
-A few resources to get you started if this is your first Flutter project:
+- Fork this repository
+- Clone the forked repository
+- Set up Firebase and Cloud Firestore
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Introduction
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is a simple todo app that's connected to a Firebase Cloud Firestore. It can perform user authentication using Firebase.
+
+## Folder Structure
+
+```
+lib
+├───api
+│   └───firebase_auth_api.dart*
+│   └───firebase_todo_api.dart
+├───models
+│   └───todo_model.dart
+├───providers
+│   └───todo_provider.dart
+│   └───auth_provider.dart*
+├───screens
+│   ├───modal_todo.dart
+│   └───todo_page.dart
+│   └───login.dart*
+│   └───signup.dart*
+└───main.dart
+```
