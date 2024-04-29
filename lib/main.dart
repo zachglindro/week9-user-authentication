@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'pages/home_page.dart';
 import 'providers/todo_provider.dart';
-import 'providers/auth_provider.dart';
+// import 'providers/auth_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ((context) => TodoListProvider())),
-        ChangeNotifierProvider(create: ((context) => UserAuthProvider()))
+        // ChangeNotifierProvider(create: ((context) => UserAuthProvider()))
       ],
       child: MyApp(),
     ),
