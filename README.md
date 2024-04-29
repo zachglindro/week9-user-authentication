@@ -21,13 +21,21 @@ lib
 │   └───firebase_todo_api.dart
 ├───models
 │   └───todo_model.dart
-├───providers
-│   └───todo_provider.dart
-│   └───auth_provider.dart*
-├───screens
-│   ├───modal_todo.dart
+├───pages
+│   ├───home_page.dart
+│   └───modal_todo.dart
+│   └───signin_page.dart
+│   └───signup_page.dart
 │   └───todo_page.dart
-│   └───login.dart*
-│   └───signup.dart*
+│   └───user_details_page.dart
+├───providers
+│   └───auth_provider.dart*
+│   └───todo_provider.dart
 └───main.dart
 ```
+
+\* - to be added later
+
+- Models - contains the data model used
+- Pages - contains the pages/widgets used
+- Providers - contains the Todo provider that contains the data and method logic
