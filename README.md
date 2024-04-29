@@ -32,9 +32,9 @@ lib
 │   └───auth_provider.dart*
 │   └───todo_provider.dart
 └───main.dart
-```
 
-\* - to be added later
+* - to be added later
+```
 
 - Models - contains the data model used
 - Pages - contains the pages/widgets used
