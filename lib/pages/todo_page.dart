@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/todo_model.dart';
-// import '../providers/auth_provider.dart';
+import '../providers/auth_provider.dart';
 import '../providers/todo_provider.dart';
 import 'modal_todo.dart';
 import 'user_details_page.dart';
@@ -120,6 +120,7 @@ class _TodoPageState extends State<TodoPage> {
 
   Drawer get drawer => Drawer(
           child: ListView(padding: EdgeInsets.zero, children: [
+        const DrawerHeader(child: Text("Todo")),
         ListTile(
           title: const Text('Details'),
           onTap: () {
@@ -130,9 +131,16 @@ class _TodoPageState extends State<TodoPage> {
           },
         ),
         ListTile(
+          title: const Text('Todo List'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, "/");
+          },
+        ),
+        ListTile(
           title: const Text('Logout'),
           onTap: () {
-            // context.read<UserAuthProvider>().signOut();
+            context.read<UserAuthProvider>().signOut();
             Navigator.pop(context);
           },
         ),

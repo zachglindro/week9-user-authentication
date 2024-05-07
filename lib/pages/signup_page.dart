@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import '../providers/auth_provider.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -32,29 +32,6 @@ class _SignUpState extends State<SignUpPage> {
     );
   }
 
-  bool isEmailValid(String? email) {
-    var re = RegExp(r"^[\w\.]+[A-z0-9]@[a-z]+\.[a-z]+$", unicode: true);
-    if (email == null) return false;
-    return email.length >= 8 && re.hasMatch(email);
-  }
-
-  bool isPasswordValid(String? password) {
-    var re = RegExp(r"^[\w@&\$!#\?%]+$", unicode: true);
-    var cap = RegExp(r"[A-Z]", unicode: true);
-    var low = RegExp(r"[a-z]", unicode: true);
-    var num = RegExp(r"[0-9]", unicode: true);
-    var char = RegExp(r"[@&\$!#\?%]", unicode: true);
-
-    if (password == null) return false;
-
-    bool hasRequiredChars = cap.hasMatch(password) &&
-        low.hasMatch(password) &&
-        num.hasMatch(password) &&
-        char.hasMatch(password);
-
-    return password.length >= 8 && re.hasMatch(password) && hasRequiredChars;
-  }
-
   Widget get heading => const Padding(
         padding: EdgeInsets.only(bottom: 30),
         child: Text(
@@ -72,7 +49,7 @@ class _SignUpState extends State<SignUpPage> {
               hintText: "Enter a valid email"),
           onSaved: (value) => setState(() => email = value),
           validator: (value) {
-            if (!isEmailValid(value)) {
+            if (value == null || value.isEmpty) {
               return "Please enter a valid email format";
             }
             return null;
@@ -90,8 +67,8 @@ class _SignUpState extends State<SignUpPage> {
           obscureText: true,
           onSaved: (value) => setState(() => password = value),
           validator: (value) {
-            if (!isPasswordValid(value)) {
-              return "Must contain A-z, 0-9, !@#\$?&%";
+            if (value == null || value.isEmpty) {
+              return "Please enter a valid password";
             }
             return null;
           },
@@ -102,10 +79,13 @@ class _SignUpState extends State<SignUpPage> {
       onPressed: () async {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
-          // await context
-          //     .read<UserAuthProvider>()
-          //     .authService
-          //     .signUp(email!, password!);
+          await context
+              .read<UserAuthProvider>()
+              .authService
+              .signUp(email!, password!);
+
+          // check if the widget hasn't been disposed of after an asynchronous action
+          if (mounted) Navigator.pop(context);
         }
       },
       child: const Text("Sign Up"));
